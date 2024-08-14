@@ -1,0 +1,38 @@
+CREATE DATABASE library;
+
+CREATE TABLE categories(
+	Category_Id VARCHAR(20) PRIMARY KEY,
+	Category_Name VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE books(
+	Book_Id VARCHAR(40)PRIMARY KEY,
+	Book_Name VARCHAR(50) NOT NULL,
+	Category_Id VARCHAR(30) NOT NULL,
+	Book_Author VARCHAR(40) NOT NULL,
+	Book_Price DECIMAL(6,2) NOT NULL,
+	FOREIGN KEY(Category_Id)REFERENCES categories(Category_Id)
+);
+
+CREATE TABLE members(
+	Member_Id VARCHAR(20)PRIMARY KEY,
+	Member_Name VARCHAR(40) NOT NULL,
+	Member_Email VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE borrowings(
+	Borrowing_Id VARCHAR(50)NOT NULL,
+	Member_Id VARCHAR(20) NOT NULL,
+	Book_Id VARCHAR(40) NOT NULL,
+	Borrow_Date DATE NOT NULL,
+	Due_Date DATE NOT NULL,
+	FOREIGN KEY(Member_Id) REFERENCES members(Member_Id),
+	FOREIGN KEY(Book_Id) REFERENCES books(Book_Id)
+);
+
+CREATE TABLE returnBook(
+	Borrowing_Id VARCHAR(50) NOT NULL,
+	Member_Id VARCHAR(20) NOT NULL,
+	Fine VARCHAR(10) NOT NULL,
+	FOREIGN KEY(Member_Id) REFERENCES members(Member_Id) 
+);
